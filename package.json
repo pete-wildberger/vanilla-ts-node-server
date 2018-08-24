@@ -1,20 +1,24 @@
 {
-	"name": "vanilla-ts-node-server",
-	"version": "1.0.0",
-	"description": "Vanilla typescript/node Rest API",
-	"main": "dist/main.js",
-	"directories": {
-		"lib": "lib"
-	},
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "Peter Wildberger",
-	"license": "MIT",
-	"dependencies": {},
-	"devDependencies": {
-		"@types/node": "^10.7.1",
-		"@types/body-parser": "^1.17.0",
-		"@types/send": "^0.14.4"
-	}
+  "name": "vanilla-ts-node-server",
+  "version": "1.0.0",
+  "description": "Vanilla typescript/node Rest API",
+  "main": "dist/main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jasmine-ts \"tests/*.spec.ts\""
+  },
+  "author": "Peter Wildberger",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/jasmine": "^2.8.8",
+    "@types/node": "^10.7.1",
+    "@types/request": "^2.47.1",
+    "@types/send": "^0.14.4",
+    "jasmine-ts": "^0.2.1",
+    "request": "^2.88.0"
+  }
 }
