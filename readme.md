@@ -1,4 +1,4 @@
-#Vanilla ts-node server
+# Vanilla ts-node server
 
 You will need the typescript compiler to make a dist directory.  No non-dev dependencies so far so it should be ready to go by running `sh run.sh` in terminal.  
 To run tests use `yarn install` and `yarn test`
