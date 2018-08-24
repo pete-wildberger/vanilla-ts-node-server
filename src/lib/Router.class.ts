@@ -78,7 +78,7 @@ export class Router {
       });
     });
   };
-  // methods
+  // http methods
   get = (path: string, callback: Function) => {
     this.reqCallbacks['GET:' + path] = callback;
   };
@@ -114,6 +114,7 @@ export class Router {
       url: req.url
     });
   }
+  // 'body-parseresque' implementation TODO support more types
   parseRequestData(req: request, data: any): any {
     const FORM_URLENCODED = 'application/x-www-form-urlencoded';
     let body: string = '';
