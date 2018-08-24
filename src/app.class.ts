@@ -6,7 +6,7 @@ export class App extends Router {
     super(server);
     this.routes();
   }
-  routes() {
+  private routes() {
     this.get('/', (req: request, res: response) => {
       console.log('base url hit');
       res.json({ message: "LET's Go" });
