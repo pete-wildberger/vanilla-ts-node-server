@@ -1,6 +1,7 @@
 import { join } from 'path';
 import { Server } from 'http';
-import { Router, request, response } from './lib/Router.class';
+import { Router, request } from './lib/Router.class';
+import { response } from './lib/utils/Response.class';
 
 export class App extends Router {
   private PUBLICDIR: string = join(process.cwd(), 'public');
