@@ -1,14 +1,16 @@
 import { join } from 'path';
 import { Server } from 'http';
-import { Router, request } from './lib/Router.class';
+import { Application, request } from './lib/Application.class';
 import { response } from './lib/utils/Response.class';
 
-export class App extends Router {
+export class App extends Application {
   private PUBLICDIR: string = join(process.cwd(), 'public');
   constructor(server: Server) {
     super(server);
+    this.middleware();
     this.routes();
   }
+  private middleware() {}
   private routes() {
     // send html
     this.get('/', (req: request, res: response) => {
