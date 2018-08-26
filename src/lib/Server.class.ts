@@ -18,27 +18,60 @@ export abstract class VServer {
   }
   // http methods
   get = (path: string, callback: Function) => {
-    this.reqCallbacks['GET:' + path] = callback;
+    let endpoint: string = '';
+    let path_arr: string[] = path.split('/');
+    if (path_arr.length === 2) {
+      endpoint = path_arr[1];
+    }
+    this.reqCallbacks[endpoint + ':POST'] = callback;
   };
 
   post = (path: string, callback: Function) => {
-    this.reqCallbacks['POST:' + path] = callback;
+    let endpoint: string = '';
+    let path_arr: string[] = path.split('/');
+    if (path_arr.length === 2) {
+      endpoint = path_arr[1];
+    }
+    this.reqCallbacks[endpoint + ':POST'] = callback;
   };
 
   put = (path: string, callback: Function) => {
-    this.reqCallbacks['PUT:' + path] = callback;
+    let endpoint: string = '';
+    let path_arr: string[] = path.split('/');
+    if (path_arr.length === 2) {
+      endpoint = path_arr[1];
+    }
+    this.reqCallbacks[endpoint + ':PUT'] = callback;
   };
 
   patch = (path: string, callback: Function) => {
-    this.reqCallbacks['PATCH:' + path] = callback;
+    let endpoint: string = '';
+    let path_arr: string[] = path.split('/');
+    if (path_arr.length === 2) {
+      endpoint = path_arr[1];
+    }
+    this.reqCallbacks[endpoint + ':PATCH'] = callback;
   };
 
   delete = (path: string, callback: Function) => {
-    this.reqCallbacks['DELETE:' + path] = callback;
+    let endpoint: string = '';
+    let path_arr: string[] = path.split('/');
+    if (path_arr.length === 2) {
+      endpoint = path_arr[1];
+    }
+    this.reqCallbacks[endpoint + ':DELETE'] = callback;
   };
 
-  use = (callback: Function) => {
-    this.middlewareCallbacks.push(callback);
+  use = (arg: string | Function, router?: any) => {
+    if (typeof arg === 'string') {
+      if (router) {
+        this.reqCallbacks[arg] = router;
+      } else {
+        throw new Error('use method requires callback if the first argument is a sring');
+      }
+    } else {
+      this.middlewareCallbacks.push(arg);
+    }
   };
 
   setDefaultResponse = (callback: Function) => {
@@ -47,5 +80,19 @@ export abstract class VServer {
 
   setNotFoundResponse = (callback: Function) => {
     this.reqCallbacks.notFound = callback;
+  };
+  routeFinder = (arr: string[], method: string | undefined): any => {
+    let v: Icallbacks = this.reqCallbacks;
+    let fin_idx: number = arr.length - 1;
+    arr.forEach((path, i) => {
+      if (!v) {
+        return null;
+      } else if (i === fin_idx && method !== undefined) {
+        v = v[arr[i] + ':' + method];
+      } else {
+        v = v[arr[i]];
+      }
+    });
+    return v;
   };
 }

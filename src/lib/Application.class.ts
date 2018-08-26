@@ -43,7 +43,7 @@ export class Application extends VServer {
       });
 
       req.on('end', () => {
-        const callback = this.reqCallbacks[method + ':' + urlParsed.pathname];
+        const callback = this.routeFinder(String(urlParsed.pathname).split('/'), method);
 
         if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
           if (data) {
