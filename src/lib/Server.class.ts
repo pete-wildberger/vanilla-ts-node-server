@@ -65,28 +65,19 @@ export abstract class VServer {
     this.reqCallbacks.notFound = callback;
   };
   routeFinder = (arr: string[], method: string | undefined): any => {
-    console.log('>>>>>>>>', arr, method);
     if (arr[0] === '' && arr[1] === '') {
       return '/:' + method;
     } else {
+      arr.shift();
+      arr.push('/:' + method);
       let v: Icallbacks = this.reqCallbacks;
-      let fin_idx: number = arr.length - 1;
-      let route = arr.map((path, i) => {
+      for (var i = 0; i < arr.length; i++) {
         if (!v) {
           return null;
-        } else if (i === fin_idx && method !== undefined) {
-          let end: string = arr[i];
-          return (v = v[end + ':' + method]);
-        } else {
-          let end: string = arr[i];
-          if (end === '') {
-            end = '/';
-          }
-          v = v[end];
         }
-      });
-      console.log('vvvvvvvv', route);
-      return route[0];
+        v = v[arr[i]];
+      }
+      return v;
     }
   };
 }
