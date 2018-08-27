@@ -21,3 +21,14 @@ export function parseQueryFromUrl(query: string): { [key: string]: any } {
   });
   return result;
 }
+export function endpointBuilder(path: string): string {
+  let endpoint: string = '/';
+  let path_arr: string[] = path.split('/');
+  if (path_arr.length === 2) {
+    endpoint = path_arr[1];
+  }
+  if (endpoint === '') {
+    endpoint = '/';
+  }
+  return endpoint;
+}

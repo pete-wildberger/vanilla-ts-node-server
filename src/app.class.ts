@@ -1,6 +1,7 @@
 import { join } from 'path';
 import { Server } from 'http';
 import { Application, request } from './lib/Application.class';
+import { Router } from './lib/Router.class';
 import { response } from './lib/utils/Response.class';
 
 export class App extends Application {
@@ -17,18 +18,22 @@ export class App extends Application {
       console.log('base url hit');
       res.sendFile(join(this.PUBLICDIR, 'index.html'));
     });
+
+    let message = new Router();
     // send json
-    this.get('/message', (req: request, res: response) => {
+    message.get('/', (req: request, res: response) => {
       console.log('/message get hit');
       res.json({ message: "LET's Go" });
     });
-    this.post('/message', (req: request, res: response) => {
+    message.post('/', (req: request, res: response) => {
       console.log('/message post hit');
       res.json({ message: "LET's Go", bounce: req.body, query: req.query });
     });
-    this.put('/message', (req: request, res: response) => {
+    message.put('/', (req: request, res: response) => {
       console.log('/message put hit');
       res.json({ message: "LET's Go", bounce: req.body, query: req.query, params: req.params });
     });
+    this.use('/message', message);
+    console.log(this.reqCallbacks);
   }
 }
